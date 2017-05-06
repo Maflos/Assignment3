@@ -15,4 +15,5 @@ In addition, when a patient having a consultation has arrived at the clinic and 
 
 3.	Application Constraints
 •	The application should be client-server and the data will be stored in a database. Use the Observer design pattern for notifying the doctors when their patients have arrived.
+
 •	All the inputs of the application will be validated against invalid data before submitting the data and saving it.   
