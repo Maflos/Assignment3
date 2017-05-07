@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="hospitalModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="consultation">
+          <Key>
+            <PropertyRef Name="consultationID" />
+          </Key>
+          <Property Name="consultationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="doctorID" Type="int" Nullable="false" />
+          <Property Name="patientID" Type="int" Nullable="false" />
+          <Property Name="details" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="date" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="patient">
+          <Key>
+            <PropertyRef Name="patientID" />
+          </Key>
+          <Property Name="patientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="idCardNumber" Type="int" Nullable="false" />
+          <Property Name="PIN" Type="int" Nullable="false" />
+          <Property Name="birthDate" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="function" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <Association Name="doctorID_FK">
+          <End Role="user" Type="Self.user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="consultation" Type="Self.consultation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="consultation">
+              <PropertyRef Name="doctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="patientID_FK">
+          <End Role="patient" Type="Self.patient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="consultation" Type="Self.consultation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="patientID" />
+            </Principal>
+            <Dependent Role="consultation">
+              <PropertyRef Name="patientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="hospitalModelStoreContainer">
+          <EntitySet Name="consultation" EntityType="Self.consultation" Schema="hospital" store:Type="Tables" />
+          <EntitySet Name="patient" EntityType="Self.patient" Schema="hospital" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="hospital" store:Type="Tables" />
+          <AssociationSet Name="doctorID_FK" Association="Self.doctorID_FK">
+            <End Role="user" EntitySet="user" />
+            <End Role="consultation" EntitySet="consultation" />
+          </AssociationSet>
+          <AssociationSet Name="patientID_FK" Association="Self.patientID_FK">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="consultation" EntitySet="consultation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="hospitalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="consultation">
+          <Key>
+            <PropertyRef Name="consultationID" />
+          </Key>
+          <Property Name="consultationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="doctorID" Type="Int32" Nullable="false" />
+          <Property Name="patientID" Type="Int32" Nullable="false" />
+          <Property Name="details" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.doctorID_FK" FromRole="consultation" ToRole="user" />
+          <NavigationProperty Name="patient" Relationship="Self.patientID_FK" FromRole="consultation" ToRole="patient" />
+        </EntityType>
+        <EntityType Name="patient">
+          <Key>
+            <PropertyRef Name="patientID" />
+          </Key>
+          <Property Name="patientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idCardNumber" Type="Int32" Nullable="false" />
+          <Property Name="PIN" Type="Int32" Nullable="false" />
+          <Property Name="birthDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="consultation" Relationship="Self.patientID_FK" FromRole="patient" ToRole="consultation" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="function" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="consultation" Relationship="Self.doctorID_FK" FromRole="user" ToRole="consultation" />
+        </EntityType>
+        <Association Name="doctorID_FK">
+          <End Role="user" Type="Self.user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="consultation" Type="Self.consultation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="consultation">
+              <PropertyRef Name="doctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="patientID_FK">
+          <End Role="patient" Type="Self.patient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="consultation" Type="Self.consultation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="patientID" />
+            </Principal>
+            <Dependent Role="consultation">
+              <PropertyRef Name="patientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="hospitalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="consultation" EntityType="Self.consultation" />
+          <EntitySet Name="patient" EntityType="Self.patient" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <AssociationSet Name="doctorID_FK" Association="Self.doctorID_FK">
+            <End Role="user" EntitySet="user" />
+            <End Role="consultation" EntitySet="consultation" />
+          </AssociationSet>
+          <AssociationSet Name="patientID_FK" Association="Self.patientID_FK">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="consultation" EntitySet="consultation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="hospitalModelStoreContainer" CdmEntityContainer="hospitalEntities">
+          <EntitySetMapping Name="consultation">
+            <EntityTypeMapping TypeName="hospitalModel.consultation">
+              <MappingFragment StoreEntitySet="consultation">
+                <ScalarProperty Name="consultationID" ColumnName="consultationID" />
+                <ScalarProperty Name="doctorID" ColumnName="doctorID" />
+                <ScalarProperty Name="patientID" ColumnName="patientID" />
+                <ScalarProperty Name="details" ColumnName="details" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="patient">
+            <EntityTypeMapping TypeName="hospitalModel.patient">
+              <MappingFragment StoreEntitySet="patient">
+                <ScalarProperty Name="patientID" ColumnName="patientID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="idCardNumber" ColumnName="idCardNumber" />
+                <ScalarProperty Name="PIN" ColumnName="PIN" />
+                <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="hospitalModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="function" ColumnName="function" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicInterfaces", "ClinicInterfaces\ClinicInterfaces.csproj", "{1E3F0941-9B75-41D1-B2ED-31E31ABFBB3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicService", "ClinicService\ClinicService.csproj", "{A3DD8AD2-9C4D-46F9-B298-5F1A6F863C6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicClients", "ClinicClients\ClinicClients.csproj", "{521D4C50-90C4-4B6E-B17C-ED5FA9F07EB4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E3F0941-9B75-41D1-B2ED-31E31ABFBB3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E3F0941-9B75-41D1-B2ED-31E31ABFBB3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E3F0941-9B75-41D1-B2ED-31E31ABFBB3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E3F0941-9B75-41D1-B2ED-31E31ABFBB3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3DD8AD2-9C4D-46F9-B298-5F1A6F863C6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3DD8AD2-9C4D-46F9-B298-5F1A6F863C6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3DD8AD2-9C4D-46F9-B298-5F1A6F863C6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3DD8AD2-9C4D-46F9-B298-5F1A6F863C6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{521D4C50-90C4-4B6E-B17C-ED5FA9F07EB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{521D4C50-90C4-4B6E-B17C-ED5FA9F07EB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{521D4C50-90C4-4B6E-B17C-ED5FA9F07EB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{521D4C50-90C4-4B6E-B17C-ED5FA9F07EB4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
