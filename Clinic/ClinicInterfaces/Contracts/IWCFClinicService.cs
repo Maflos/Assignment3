@@ -1,10 +1,5 @@
 ﻿using ClinicInterfaces.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
 
 namespace ClinicInterface
 {
@@ -14,6 +9,5 @@ namespace ClinicInterface
     {
         [OperationContract]
         User FindUser(string username, string password);
-
     }
 }

@@ -35,17 +35,17 @@ namespace ClinicClients
                 switch (user.Function)
                 {
                     case "secretary":
-                        SecretaryForm sf = new SecretaryForm();
+                        SecretaryForm sf = new SecretaryForm(user);
                         sf.Visible = true;
                         break;
 
                     case "admin":
-                        AdminForm af = new AdminForm();
+                        AdminForm af = new AdminForm(user);
                         af.Visible = true;
                         break;
 
                     case "doctor":
-                        DoctorForm df = new DoctorForm();
+                        DoctorForm df = new DoctorForm(user);
                         df.Visible = true;
                         break;
 

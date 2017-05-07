@@ -17,14 +17,16 @@ namespace ClinicClients
     public partial class SecretaryForm : Form
     {
         private ChannelFactory<IWCFSecretaryInterface> channelFcatory;
+        private User secretary;
 
-        public SecretaryForm()
+        public SecretaryForm(User secretary)
         {
             InitializeComponent();
             dataGridView1.Columns[4].Visible = false;
             dataGridView2.Columns[3].Visible = false;
             dataGridView2.Columns[4].Visible = false;
             channelFcatory = new ChannelFactory<IWCFSecretaryInterface>("Secretary");
+            this.secretary = secretary;
             resetPatientGrid();
         }
 
