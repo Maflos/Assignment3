@@ -23,10 +23,10 @@ namespace ClinicClients
             InitializeComponent();
             channelFcatory = new ChannelFactory<IWCFDoctorInterface>("Doctor");
             this.doctor = doctor;
-            resetDoctorGrid();
+            ResetDoctorGrid();
         }
 
-        private void resetDoctorGrid()
+        private void ResetDoctorGrid()
         {
             IWCFDoctorInterface proxy = channelFcatory.CreateChannel();
             List<DoctorConsultation> consultationList = proxy.GetOwnedConsultations(doctor.UserID);
@@ -48,7 +48,7 @@ namespace ClinicClients
 
         private void button2_Click(object sender, EventArgs e)
         {
-            resetDoctorGrid();
+            ResetDoctorGrid();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -63,7 +63,7 @@ namespace ClinicClients
                     proxy.UpdateDoctorConsultation((int)dataGridView1.Rows[rowInderx].Cells[4].Value,
                         richTextBox1.Text);
 
-                    resetDoctorGrid();
+                    ResetDoctorGrid();
                     richTextBox1.ResetText();
                 }
                 catch

@@ -22,5 +22,14 @@ namespace ClinicInterfaces
 
         [OperationContract]
         void UpdatePatient(Patient pat);
+
+        [OperationContract]
+        List<SecretaryConsultation> GetConsultations();
+
+        [OperationContract]
+        int GetAvailableDoctorID(DateTime consultationDate);
+
+        [OperationContract]
+        void ProgramConsultation(int doctorID, int patientID, DateTime date);
     }
 }

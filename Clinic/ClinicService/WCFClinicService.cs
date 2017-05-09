@@ -62,6 +62,86 @@ namespace ClinicService
             return patientList;
         }
 
+        public List<SecretaryConsultation> GetConsultations()
+        {
+            List<SecretaryConsultation> consultationList = new List<SecretaryConsultation>();
+
+            using (hospitalEntities database = new hospitalEntities())
+            {
+                List<consultation> cList = new List<consultation>();
+
+                foreach (consultation c in database.consultation)
+                {
+                    cList.Add(c);
+                }
+
+                foreach (consultation c in cList)
+                {
+                    var d = database.user.Find(c.doctorID);
+                    var p = database.patient.Find(c.patientID);
+
+                    SecretaryConsultation con = new SecretaryConsultation()
+                    {
+                        ConsultationID = c.consultationID,
+                        DoctorID = c.doctorID,
+                        PatientID = c.patientID,
+                        DoctorName = d.username,
+                        PatientName = p.name,
+                        Date = c.date
+                    };
+
+                    consultationList.Add(con);
+                }
+            }
+
+            return consultationList;
+        }
+
+        public int GetAvailableDoctorID(DateTime consultationDate)
+        {
+            int doctorID = -1;
+            List<User> userList = GetUsers();
+
+            using (hospitalEntities database = new hospitalEntities())
+            {
+                
+                foreach(User u in userList)
+                {
+                    if (u.Function == "doctor")
+                    {
+                        try
+                        {
+                            var result = database.consultation.First(c => c.date == consultationDate &&
+                            c.doctorID == u.UserID);
+                        }
+                        catch
+                        {
+                            return u.UserID;
+                        }
+                    }                   
+                }
+            }
+
+            return doctorID;
+        }
+
+        public void ProgramConsultation(int docID, int patID, DateTime dat)
+        {
+            using (var context = new hospitalEntities())
+            {
+                var c = new consultation
+                {
+                    doctorID = docID,
+                    patientID = patID,
+                    date = dat,
+                    details = "not yet seen"
+                };
+
+                context.consultation.Add(c);
+                context.SaveChanges();
+            }
+        }
+
         public void InsertPatient(Patient pat)
         {
             using (var context = new hospitalEntities())
@@ -218,5 +298,6 @@ namespace ClinicService
                 context.SaveChanges();
             }
         }
+
     }
 }

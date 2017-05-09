@@ -17,16 +17,16 @@ namespace ClinicClients
             InitializeComponent();
             channelFcatory = new ChannelFactory<IWCFAdminInterface>("Admin");
             this.admin = admin;
-            resetUserGrid();
+            ResetUserGrid();
         }
 
-        private void resetFields()
+        private void ResetFields()
         {
             textBox1.Clear();
             textBox2.Clear();
         }
 
-        private void resetUserGrid()
+        private void ResetUserGrid()
         {
             IWCFAdminInterface proxy = channelFcatory.CreateChannel();
             List<User> userList = proxy.GetUsers();
@@ -47,7 +47,7 @@ namespace ClinicClients
 
         private void button1_Click(object sender, EventArgs e)
         {
-            resetUserGrid();
+            ResetUserGrid();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -65,8 +65,8 @@ namespace ClinicClients
                         Function = comboBox1.Text
                     });
 
-                    resetUserGrid();
-                    resetFields();
+                    ResetUserGrid();
+                    ResetFields();
                 }
                 catch
                 {
@@ -89,8 +89,8 @@ namespace ClinicClients
                 int rowInderx = dataGridView1.CurrentCell.RowIndex;
                 proxy.DeleteUser((int)dataGridView1.Rows[rowInderx].Cells[3].Value);
 
-                resetUserGrid();
-                resetFields();
+                ResetUserGrid();
+                ResetFields();
             }
             catch
             {
@@ -115,8 +115,8 @@ namespace ClinicClients
                         Function = comboBox1.Text
                     });
 
-                    resetUserGrid();
-                    resetFields();
+                    ResetUserGrid();
+                    ResetFields();
                 }
                 catch
                 {

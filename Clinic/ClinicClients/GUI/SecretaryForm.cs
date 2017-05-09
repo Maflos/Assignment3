@@ -27,10 +27,11 @@ namespace ClinicClients
             dataGridView2.Columns[4].Visible = false;
             channelFcatory = new ChannelFactory<IWCFSecretaryInterface>("Secretary");
             this.secretary = secretary;
-            resetPatientGrid();
+            ResetPatientGrid();
+            ResetConsultationGrid();
         }
 
-        private void resetFields()
+        private void ResetFields()
         {
             textBox1.Clear();
             textBox2.Clear();
@@ -38,7 +39,7 @@ namespace ClinicClients
             textBox4.Clear();
         }
 
-        private void resetPatientGrid()
+        private void ResetPatientGrid()
         {
             IWCFSecretaryInterface proxy = channelFcatory.CreateChannel();
             List<Patient> patientList = proxy.GetPatients();
@@ -51,16 +52,38 @@ namespace ClinicClients
                 dataGridView1.Rows[i].Cells[0].Value = patientList[i].Name;
                 dataGridView1.Rows[i].Cells[1].Value = patientList[i].IDCardNr;
                 dataGridView1.Rows[i].Cells[2].Value = patientList[i].PIN;
-                dataGridView1.Rows[i].Cells[3].Value = patientList[i].BirthDate;
+                dataGridView1.Rows[i].Cells[3].Value = patientList[i].BirthDate.Date;
                 dataGridView1.Rows[i].Cells[4].Value = patientList[i].ID;
             }
 
             dataGridView1.Update();
         }
 
+        private void ResetConsultationGrid()
+        {
+            IWCFSecretaryInterface proxy = channelFcatory.CreateChannel();
+            List<SecretaryConsultation> consultationList = proxy.GetConsultations();
+
+            dataGridView2.Rows.Clear();
+
+            for (int i = 0; i < consultationList.Count; i++)
+            {
+                dataGridView2.Rows.Add();
+                dataGridView2.Rows[i].Cells[0].Value = consultationList[i].PatientName;
+                dataGridView2.Rows[i].Cells[1].Value = consultationList[i].DoctorName;
+                dataGridView2.Rows[i].Cells[2].Value = consultationList[i].Date.Date;
+                dataGridView2.Rows[i].Cells[3].Value = consultationList[i].PatientID;
+                dataGridView2.Rows[i].Cells[4].Value = consultationList[i].DoctorID;
+                dataGridView2.Rows[i].Cells[5].Value = consultationList[i].ConsultationID;
+            }
+
+            dataGridView1.Update();
+        }
+
+
         private void button1_Click(object sender, EventArgs e)
         {
-            resetPatientGrid();
+            ResetPatientGrid();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -77,8 +100,8 @@ namespace ClinicClients
                     BirthDate = DateTime.Parse(textBox4.Text)
                 });
 
-                resetPatientGrid();
-                resetFields();
+                ResetPatientGrid();
+                ResetFields();
             }
             catch
             {
@@ -96,8 +119,8 @@ namespace ClinicClients
                 int rowInderx = dataGridView1.CurrentCell.RowIndex;
                 proxy.DeletePatient((int)dataGridView1.Rows[rowInderx].Cells[4].Value);
 
-                resetPatientGrid();
-                resetFields();
+                ResetPatientGrid();
+                ResetFields();
             }
             catch
             {
@@ -122,8 +145,8 @@ namespace ClinicClients
                     BirthDate = DateTime.Parse(textBox4.Text)
                 });
 
-                resetPatientGrid();
-                resetFields();
+                ResetPatientGrid();
+                ResetFields();
             }
             catch
             {
@@ -131,6 +154,38 @@ namespace ClinicClients
             }
         }
 
+        private void button6_Click(object sender, EventArgs e)
+        {
+            ResetConsultationGrid();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            IWCFSecretaryInterface proxy = channelFcatory.CreateChannel();
+
+            try
+            {
+                int docID = proxy.GetAvailableDoctorID(DateTime.Parse(textBox5.Text));
+
+                if (docID != -1)
+                {
+                    textBox1.ResetText();
+                    textBox1.Text += docID;
+                    int rowInderx = dataGridView1.CurrentCell.RowIndex;
+                    proxy.ProgramConsultation(docID, (int)dataGridView1.Rows[rowInderx].Cells[4].Value,
+                    DateTime.Parse(textBox5.Text));
+                    ResetConsultationGrid();
+                }
+                else
+                {
+                    MessageBox.Show("No doctor Available!");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Wrong input!");
+            }
+        }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -140,7 +195,5 @@ namespace ClinicClients
         {
 
         }
-
-       
     }
 }

@@ -47,6 +47,7 @@
     <Compile Include="Contracts\IWCFSecretaryInterface.cs" />
     <Compile Include="Model\DoctorConsultation.cs" />
     <Compile Include="Model\Patient.cs" />
+    <Compile Include="Model\SecretaryConsultation.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
