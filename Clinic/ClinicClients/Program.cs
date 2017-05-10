@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClinicInterfaces.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,9 +15,10 @@ namespace ClinicClients
         [STAThread]
         static void Main()
         {
+            Subject sbj = new Subject();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+            Application.Run(new Login(sbj));
         }
     }
 }

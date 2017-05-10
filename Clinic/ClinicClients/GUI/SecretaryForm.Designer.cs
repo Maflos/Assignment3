@@ -47,15 +47,15 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -222,35 +222,6 @@
             this.dataGridView2.TabIndex = 13;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(682, 261);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(114, 23);
-            this.button5.TabIndex = 14;
-            this.button5.Text = "Program";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(682, 215);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(114, 23);
-            this.button6.TabIndex = 15;
-            this.button6.Text = "Load Consultations";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(682, 308);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(114, 23);
-            this.button7.TabIndex = 16;
-            this.button7.Text = "Check In";
-            this.button7.UseVisualStyleBackColor = true;
-            // 
             // Column6
             // 
             this.Column6.HeaderText = "Patient Name";
@@ -286,6 +257,36 @@
             this.Column11.HeaderText = "consultationID";
             this.Column11.Name = "Column11";
             this.Column11.Visible = false;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(682, 261);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(114, 23);
+            this.button5.TabIndex = 14;
+            this.button5.Text = "Program";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(682, 215);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(114, 23);
+            this.button6.TabIndex = 15;
+            this.button6.Text = "Load Consultations";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(682, 308);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(114, 23);
+            this.button7.TabIndex = 16;
+            this.button7.Text = "Check In";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // textBox5
             // 

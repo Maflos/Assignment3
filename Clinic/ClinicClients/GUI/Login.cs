@@ -1,15 +1,7 @@
 ﻿using ClinicInterface;
-using ClinicInterfaces;
 using ClinicInterfaces.Model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ClinicClients
@@ -17,11 +9,13 @@ namespace ClinicClients
     public partial class Login : Form
     {
         private ChannelFactory<IWCFClinicService> channelFcatory;
+        private Subject sbj;
 
-        public Login()
+        public Login(Subject sbj)
         {
             InitializeComponent();
             channelFcatory = new ChannelFactory<IWCFClinicService>("ClinicService");
+            this.sbj = sbj;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -35,7 +29,7 @@ namespace ClinicClients
                 switch (user.Function)
                 {
                     case "secretary":
-                        SecretaryForm sf = new SecretaryForm(user);
+                        SecretaryForm sf = new SecretaryForm(user, sbj);
                         sf.Visible = true;
                         break;
 
@@ -46,6 +40,7 @@ namespace ClinicClients
 
                     case "doctor":
                         DoctorForm df = new DoctorForm(user);
+                        sbj.Attach(df);
                         df.Visible = true;
                         break;
 
@@ -62,6 +57,11 @@ namespace ClinicClients
                 textBox2.Clear();
                 MessageBox.Show("User doesn't exist!");
             }
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

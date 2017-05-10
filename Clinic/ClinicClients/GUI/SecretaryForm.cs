@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ServiceModel;
-using ClinicInterface;
 using ClinicInterfaces.Model;
 using ClinicInterfaces;
 
@@ -18,8 +11,9 @@ namespace ClinicClients
     {
         private ChannelFactory<IWCFSecretaryInterface> channelFcatory;
         private User secretary;
+        private Subject sbj;
 
-        public SecretaryForm(User secretary)
+        public SecretaryForm(User secretary, Subject sbj)
         {
             InitializeComponent();
             dataGridView1.Columns[4].Visible = false;
@@ -27,6 +21,7 @@ namespace ClinicClients
             dataGridView2.Columns[4].Visible = false;
             channelFcatory = new ChannelFactory<IWCFSecretaryInterface>("Secretary");
             this.secretary = secretary;
+            this.sbj = sbj;
             ResetPatientGrid();
             ResetConsultationGrid();
         }
@@ -116,8 +111,8 @@ namespace ClinicClients
 
             try
             {
-                int rowInderx = dataGridView1.CurrentCell.RowIndex;
-                proxy.DeletePatient((int)dataGridView1.Rows[rowInderx].Cells[4].Value);
+                int rowIndex = dataGridView1.CurrentCell.RowIndex;
+                proxy.DeletePatient((int)dataGridView1.Rows[rowIndex].Cells[4].Value);
 
                 ResetPatientGrid();
                 ResetFields();
@@ -134,11 +129,11 @@ namespace ClinicClients
 
             try
             {
-                int rowInderx = dataGridView1.CurrentCell.RowIndex;
+                int rowIndex = dataGridView1.CurrentCell.RowIndex;
 
                 proxy.UpdatePatient(new Patient() {
                 
-                    ID = (int)dataGridView1.Rows[rowInderx].Cells[4].Value,
+                    ID = (int)dataGridView1.Rows[rowIndex].Cells[4].Value,
                     Name = textBox1.Text,
                     IDCardNr = int.Parse(textBox2.Text),
                     PIN = int.Parse(textBox3.Text),
@@ -171,8 +166,8 @@ namespace ClinicClients
                 {
                     textBox1.ResetText();
                     textBox1.Text += docID;
-                    int rowInderx = dataGridView1.CurrentCell.RowIndex;
-                    proxy.ProgramConsultation(docID, (int)dataGridView1.Rows[rowInderx].Cells[4].Value,
+                    int rowIndex = dataGridView1.CurrentCell.RowIndex;
+                    proxy.ProgramConsultation(docID, (int)dataGridView1.Rows[rowIndex].Cells[4].Value,
                     DateTime.Parse(textBox5.Text));
                     ResetConsultationGrid();
                 }
@@ -187,6 +182,21 @@ namespace ClinicClients
             }
         }
 
+        //observer
+        private void button7_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int rowIndex = dataGridView2.CurrentCell.RowIndex;
+                sbj.NotifyDoctor((int)dataGridView2.Rows[rowIndex].Cells[4].Value,
+                    (int)dataGridView2.Rows[rowIndex].Cells[3].Value);
+            }
+            catch
+            {
+                MessageBox.Show("Something happend!");
+            }         
+        }
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
         }
@@ -195,5 +205,6 @@ namespace ClinicClients
         {
 
         }
+
     }
 }

@@ -86,8 +86,8 @@ namespace ClinicClients
 
             try
             {
-                int rowInderx = dataGridView1.CurrentCell.RowIndex;
-                proxy.DeleteUser((int)dataGridView1.Rows[rowInderx].Cells[3].Value);
+                int rowIndex = dataGridView1.CurrentCell.RowIndex;
+                proxy.DeleteUser((int)dataGridView1.Rows[rowIndex].Cells[3].Value);
 
                 ResetUserGrid();
                 ResetFields();
@@ -106,10 +106,10 @@ namespace ClinicClients
             {
                 try
                 {
-                    int rowInderx = dataGridView1.CurrentCell.RowIndex;
+                    int rowIndex = dataGridView1.CurrentCell.RowIndex;
                     proxy.UpdateUser(new User()
                     {
-                        UserID = (int)dataGridView1.Rows[rowInderx].Cells[3].Value,
+                        UserID = (int)dataGridView1.Rows[rowIndex].Cells[3].Value,
                         Username = textBox1.Text,
                         Password = textBox2.Text,
                         Function = comboBox1.Text
